@@ -10,10 +10,6 @@ void test1()
 	sub_start("glp/0/17q2d9v/ev/error");
 }
 
-
-
-
-
 void main()
 {
 	test1();

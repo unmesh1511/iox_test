@@ -45,8 +45,6 @@ void test6()
 	sub_start("glp/0/./=logger/event");
 }
 
-
-
 void main()
 {
 	test1();

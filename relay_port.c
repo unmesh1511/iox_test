@@ -20,6 +20,7 @@ void test3()
 	sub_start("glp/0/./=logger/event");
 	sub_start("glp/0/17q2d9v/ev/error");
 }
+
 void main()
 {
 	test1();
