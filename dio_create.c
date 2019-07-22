@@ -1,11 +1,18 @@
 #include <stdio.h>
 #include "my_pub.c"
 #include "my_sub.c"
-
+void test0()
+{
+	
+	pub_start("{\r\n \"action\": \"create\"\r\n}","glp/0/17q2d9v/rq/dev/iox/dio/do");
+	printf("LOGGER EVENT\n\n");
+	sub_start("glp/0/17q2d9v/rq/dev/iox/dio/do");
+}
 void test1()
 {
 	pub_start("{\r\n \"action\": \"create\"\r\n}","glp/0/17q2d9v/rq/dev/iox/dio/do");
-	sub_start("glp/0/./=logger/event");
+	printf("LOGGER EVENT\n\n");
+	sub_start("glp/0/17q3jbh/fb/dev/iox/sys/sts");
 }
 
 void test2()
@@ -59,13 +66,13 @@ void test9()
 void main()
 {
 	test1();
-	test2();
-	test3();
-	test4();
-	test5();
-	test6();
-	test7();
-	test8();
-	test9();
+//	test2();
+//	test3();
+//	test4();
+//	test5();
+//	test6();
+//	test7();
+//	test8();
+//	test9();
 }
 

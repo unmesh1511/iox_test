@@ -52,9 +52,9 @@ void pub_setup()
 		fprintf(stderr, "Error: Out of memory.\n");
 		exit(1);	
 	}
-	mosquitto_connect_callback_set(mosq_pub, pub_connect_callback);
-	mosquitto_disconnect_callback_set(mosq_pub, pub_disconnect_callback);
-	mosquitto_publish_callback_set(mosq_pub, pub_publish_callback);
+//	mosquitto_connect_callback_set(mosq_pub, pub_connect_callback);
+//	mosquitto_disconnect_callback_set(mosq_pub, pub_disconnect_callback);
+//	mosquitto_publish_callback_set(mosq_pub, pub_publish_callback);
 	
 	//connect to mosq broker
 	char *host="localhost";

@@ -61,9 +61,9 @@ void sub_setup()
 		fprintf(stderr, "Error: Out of memory.\n");
 		exit(1);	
 	}
-	mosquitto_connect_callback_set(mosq_sub, sub_connect_callback);
-	mosquitto_disconnect_callback_set(mosq_sub, sub_disconnect_callback);
-	mosquitto_subscribe_callback_set(mosq_sub, sub_subscribe_callback);
+//	mosquitto_connect_callback_set(mosq_sub, sub_connect_callback);
+//	mosquitto_disconnect_callback_set(mosq_sub, sub_disconnect_callback);
+//	mosquitto_subscribe_callback_set(mosq_sub, sub_subscribe_callback);
 	mosquitto_message_callback_set(mosq_sub, sub_message_callback);
 
 	//connect to mosq broker
@@ -100,7 +100,7 @@ void sub_start(char *topic)
 //	sem_wait(&lock);
 	sub_setup();
 	int snd = mqtt_sub(topic);
-  	while (1);
+  	sleep(3);
 	if (sub_connect == 1) {
 		mosquitto_disconnect(mosq_sub);
 		mosquitto_destroy(mosq_sub);
