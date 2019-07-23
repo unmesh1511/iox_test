@@ -84,7 +84,6 @@ void pub_start(char *message, char *topic)
 {
 //	sem_wait(&lock);
 
-	printf("\n");
 	pub_setup();
 	int snd = mqtt_send(message, topic);
 	if (snd!=0) printf("mqtt send error=%i\n",snd);		
