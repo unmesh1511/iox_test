@@ -3,11 +3,13 @@
 #include<unistd.h>
 #include<stdlib.h>
 #include <semaphore.h>
-#define msg_size 100
+
 //extern sem_t lock;
 struct mosquitto *mosq_sub = NULL;
 int sub_connect = 0;
-char msg_copy[msg_size];
+char *msg_copy = NULL;
+int msg_length;
+
 void sub_connect_callback(struct mosquitto *mosq, void *obj, int rc)
 {
 	switch (rc) {
@@ -46,8 +48,12 @@ void sub_subscribe_callback(struct mosquitto *mosq, void *obj, int mid, int qos_
 
 void sub_message_callback(struct mosquitto *mosq, void *obj, const struct mosquitto_message *message)
 {
-//	printf("message: %s\n", (char*) message->payload);
+//	printf("%s\n", (char*) message->payload);
+	msg_length = strlen((char *)message->payload);
+	msg_copy = (char *) malloc(msg_length+5);
 	strcpy(msg_copy, message->payload);
+//	strcpy(msg_copy, message->payload);
+//	buff = (char *)message->payload;
 }
 
 void sub_setup()
@@ -98,7 +104,7 @@ void sub_start(char *topic)
 	sub_setup();
 	mqtt_sub(topic);
   	sleep(3);
-//	printf("%s\n", msg_copy);
+	printf("%s\n", msg_copy);
 	if (sub_connect == 1) {
 		mosquitto_disconnect(mosq_sub);
 		mosquitto_destroy(mosq_sub);
