@@ -1,10 +1,9 @@
-#include<mosquitto.h>
-#include<string.h>
-#include<unistd.h>
-#include<stdlib.h>
+#include <mosquitto.h>
+#include <string.h>
+#include <unistd.h>
+#include <stdlib.h>
 #include <semaphore.h>
 
-//extern sem_t lock;
 struct mosquitto *mosq_sub = NULL;
 int sub_connect = 0;
 char *msg_copy = NULL;
@@ -48,18 +47,14 @@ void sub_subscribe_callback(struct mosquitto *mosq, void *obj, int mid, int qos_
 
 void sub_message_callback(struct mosquitto *mosq, void *obj, const struct mosquitto_message *message)
 {
-//	printf("%s\n", (char*) message->payload);
 	msg_length = strlen((char *)message->payload);
 	msg_copy = (char *) malloc(msg_length+5);
 	strcpy(msg_copy, message->payload);
-//	strcpy(msg_copy, message->payload);
-//	buff = (char *)message->payload;
 }
 
 void sub_setup()
 {
 	mosquitto_lib_init();
-	// create a new mosquitto client
 	mosq_sub = mosquitto_new(NULL, true, NULL);
 	if (!mosq_sub){
 		fprintf(stderr, "Error: Out of memory.\n");
@@ -70,7 +65,6 @@ void sub_setup()
 //	mosquitto_subscribe_callback_set(mosq_sub, sub_subscribe_callback);
 	mosquitto_message_callback_set(mosq_sub, sub_message_callback);
 
-	//connect to mosq broker
 	char *host="localhost";
 	int port=1883;
 	int keepalive=2000;
@@ -79,7 +73,6 @@ void sub_setup()
 		exit(1);
 	}
 	sub_connect = 1;
-	// start loop
 	int loop=mosquitto_loop_start(mosq_sub);
 	if(loop != MOSQ_ERR_SUCCESS){
     		fprintf(stderr, "Unable to start loop: %i\n", loop);
@@ -99,16 +92,14 @@ void  mqtt_sub(char *topic)
 
 void sub_start(char *topic)
 {
-//	sleep(5);
-//	sem_wait(&lock);
 	sub_setup();
 	mqtt_sub(topic);
   	sleep(3);
-	printf("%s\n", msg_copy);
+	if ( msg_copy != NULL)
+		printf("%s\n", msg_copy);
 	if (sub_connect == 1) {
 		mosquitto_disconnect(mosq_sub);
 		mosquitto_destroy(mosq_sub);
 	}
 	mosquitto_lib_cleanup();
-//	sem_post(&lock);
 }
